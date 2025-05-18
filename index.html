@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sportwave Videos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: white;
+            text-align: center;
+        }
+        
+        /* Top Banner */
+        .top-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #202020;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            border-bottom: 3px solid #D32F2F;
+        }
+        .logo {
+            height: 70px;
+        }
+        .login-btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            background-color: #D32F2F;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-btn:hover {
+            background-color: #FF5252;
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            position: relative;
+            background: #202020;
+            padding: 20px;
+            border-bottom: 5px solid #D32F2F;
+        }
+        .hero-video {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        /* Search & Filter Section */
+        .search-container {
+            margin: 30px auto;
+            width: 90%;
+            max-width: 600px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #D32F2F;
+            border-radius: 8px;
+            background: #252525;
+            color: white;
+            text-align: center;
+            outline: none;
+        }
+        .filter-buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            background: #D32F2F;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .filter-btn.active {
+            background: #FF5252;
+        }
+        
+        /* Video Gallery */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+        }
+        .video {
+            width: 320px;
+            background: #252525;
+            padding: 12px;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+        }
+        .video:hover {
+            transform: scale(1.05);
+        }
+        .video-title {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        iframe {
+            width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Banner with Logo and Login Button -->
+    <div class="top-banner">
+        <img src="https://i.ibb.co/q30Vg4hV/1-1.png" alt="Logo" class="logo" />
+        <button class="login-btn" onclick="window.location.href='https://authpro.com/Sportwave/?return=premium.html'">Log In</button>
+    </div>
+
+    <div class="hero" id="hero-section">
+        <div id="hero-video-container"></div>
+    </div>
+
+    <!-- Search Bar & Filters -->
+    <div class="search-container">
+        <input
+            type="text"
+            id="searchBar"
+            class="search-bar"
+            placeholder="Search for a video..."
+            onkeyup="searchVideos()"
+        />
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="toggleFilter('sportwave')">Sportwave YouTube</button>
+            <button class="filter-btn active" onclick="toggleFilter('match')">Match Replays/Highlights</button>
+            <button class="filter-btn active" onclick="toggleFilter('partner')">Partner Games</button>
+            <button class="filter-btn active" onclick="toggleFilter('creator')">Content Creators</button>
+        </div>
+    </div>
+
+    <div class="gallery" id="videoGallery">
+        <!-- Videos categorized for filtering -->
+        <div class="video" data-category="sportwave" data-title="Sportwave Highlight 1">
+            <iframe
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+            <p class="video-title">PLACEHOLDER</p>
+        </div>
+        <div class="video" data-category="match" data-title="Match Replay 1">
+            <iframe
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+            <p class="video-title">PLACEHOLDER</p>
+        </div>
+        <div class="video" data-category="partner" data-title="Partner Game 1">
+            <iframe
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+            <p class="video-title">PLACEHOLDER</p>
+        </div>
+        <div class="video" data-category="creator" data-title="Content Creator Special">
+            <iframe
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+            <p class="video-title">PLACEHOLDER</p>
+        </div>
+    </div>
+
+    <script>
+        const showHeroVideo = true;
+        const heroVideoId = "lQlNqUKezTo";
+
+        if (showHeroVideo) {
+            document.getElementById("hero-video-container").innerHTML = `
+                <iframe class="hero-video" src="https://www.youtube.com/embed/${heroVideoId}" frameborder="0" allowfullscreen></iframe>
+            `;
+        }
+
+        let activeFilters = {
+            sportwave: true,
+            match: true,
+            partner: true,
+            creator: true,
+        };
+
+        function searchVideos() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let videos = document.querySelectorAll(".video");
+
+            videos.forEach((video) => {
+                let title = video.getAttribute("data-title").toLowerCase();
+                let category = video.getAttribute("data-category");
+
+                let matchesSearch = title.includes(input);
+                let matchesFilter = activeFilters[category];
+
+                if (matchesSearch && matchesFilter) {
+                    video.style.display = "block";
+                } else {
+                    video.style.display = "none";
+                }
+            });
+        }
+
+        function toggleFilter(category) {
+            activeFilters[category] = !activeFilters[category];
+
+            let button = document.querySelector(
+                `.filter-btn[onclick="toggleFilter('${category}')"]`
+            );
+            button.classList.toggle("active");
+
+            searchVideos();
+        }
+    </script>
+</body>
+</html>
